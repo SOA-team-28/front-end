@@ -14,6 +14,7 @@ import { AbandonDialogComponent } from './abandon-dialog/abandon-dialog.componen
 import { CompletedEncounterComponent } from './completed-encounter/completed-encounter.component';
 import { UnlockSecretDialogComponent } from './unlock-secret-dialog/unlock-secret-dialog.component';
 import { MarketplaceModule } from '../marketplace/marketplace.module';
+import { AllCompletedEncounterExecutionsComponent } from './all-completed-encounter-executions/all-completed-encounter-executions.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { MarketplaceModule } from '../marketplace/marketplace.module';
     AbandonDialogComponent,
     CompletedEncounterComponent,
     UnlockSecretDialogComponent,
+    AllCompletedEncounterExecutionsComponent,
     ],
   imports: [
     CommonModule,

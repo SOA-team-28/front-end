@@ -116,6 +116,45 @@
                         </table>
                     </div>
                 </div>
+
+
+
+
+                <div class="completed-ch-div">
+                    <p class="title">🏆 Completed encounters 🏆</p>
+                    <div class="completed-ch-div-content">
+                        <div *ngIf="completedEncountersReview.length == 0">
+                            <br><br>
+                            <label class="no-completed">There are no completed encounters yet!</label>
+                            <br><br>
+                        </div>
+                        <table class="checkpoint-table">
+                            <tbody>
+                                <tr *ngFor="let ch of completedEncountersReview"
+                                    class="checkpoint-row">
+                                    <td class="checkpoint">
+                                        <label class="ch-title">{{ch.encounter.name}}</label>
+                                        
+                                        <div>
+                                            <label class="ch-description">Description: {{ch.encounter.description}}</label>        
+                                        </div>
+                                        
+                                    
+                                        
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+
+
+
+
+
+
+
             </div>    
         </div>
 
