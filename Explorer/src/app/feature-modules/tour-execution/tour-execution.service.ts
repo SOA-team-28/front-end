@@ -130,12 +130,15 @@ export class TourExecutionService {
     return this.http.get<EncounterExecution>(environment.apiHost + 'tourist/encounter-execution/location/checkRange/' + encounterExecutionId + "/" + tourId, {params: queryParams});
   }
 
-  getCompleted() : Observable<EncounterExecution2[]>{
+  getCompleted(touristId:number) : Observable<EncounterExecution2[]>{
     let queryParams = new HttpParams();
     queryParams = queryParams.append("page", 0);
     queryParams = queryParams.append("pageSize", 0);
+    queryParams = queryParams.append("touristId", touristId);
     return this.http.get<EncounterExecution2[]>(environment.apiHost + 'tourist/encounter-execution/get-all-completed', {params: queryParams});
   }
+
+
 
   getRecommendedTours(tourId: number): Observable<TourPreview[]>{
     return this.http.get<TourPreview[]>(environment.apiHost + 'tour-execution/get-suggested-tours/' + tourId);

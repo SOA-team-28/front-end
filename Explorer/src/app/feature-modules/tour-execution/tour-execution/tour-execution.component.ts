@@ -57,6 +57,7 @@ export class TourExecutionComponent implements OnInit, AfterViewInit {
   currentlyPeopleOnSocialEncounter: number = 0;
 
   completedEncountersReview : EncounterExecution2[]=[]
+  completedEncountersBindingList : EncounterExecution2[]=[]
   completedEncounterExecutions : EncounterExecution[] = [];
 
   notifications: number[]=[1];
@@ -69,9 +70,7 @@ export class TourExecutionComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     this.notifications = [];
 
-    this.service.getCompleted().subscribe( result => {
-      this.completedEncountersReview = result;
-    });
+   
     
 
 
@@ -89,6 +88,8 @@ export class TourExecutionComponent implements OnInit, AfterViewInit {
       this.tourId = params['tourId'];
       this.authService.user$.subscribe(user => {
       this.tourist = user;
+
+      
 
       this.service.getTourExecution(this.tourId).subscribe(result => {
         if(result != null)
@@ -115,6 +116,19 @@ export class TourExecutionComponent implements OnInit, AfterViewInit {
     this.checkPosition();
   }, 10000);
 
+  this.service.getCompleted(this.tourist.id).subscribe( result => {
+    this.completedEncountersReview = result;
+    this.completedEncountersReview.forEach(enc=>{
+      console.log("NADJENIII: ",enc);
+      this.tour.checkpoints.forEach(cp=>{
+        if(cp.id == enc.encounter.checkPointId){
+            this.completedEncountersBindingList.push(enc);
+            console.log("VALIDNI",enc);
+        }
+      })
+    })
+    
+  });
 
   }
 

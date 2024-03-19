@@ -15,7 +15,7 @@ export class AllCompletedEncounterExecutionsComponent implements OnInit {
   constructor(private service:TourExecutionService){}
 
   ngOnInit(): void {
-    this.service.getCompleted().subscribe( result => {
+    this.service.getCompleted(2).subscribe( result => {
       console.log('rez',result)
       this.encounterExecutions = result;
       this.encounterExecutions.forEach(e =>{
