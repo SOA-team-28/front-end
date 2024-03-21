@@ -35,8 +35,8 @@ export class EncounterService {
     return this.http.get<Encounter>(environment.apiHost + 'administration/encounter/'+id);
   }
 
-  editEncounter(encounter: FormData): Observable<Encounter> {
-    return this.http.put<Encounter>(environment.apiHost + 'administration/encounter', encounter);
+  editEncounter(encounter: FormData,chId: number): Observable<Encounter> {
+    return this.http.put<Encounter>(environment.apiHost + 'administration/encounter/'+ chId, encounter);
   }
 
   deleteEncounter(checkpointId:number): Observable<Encounter> {

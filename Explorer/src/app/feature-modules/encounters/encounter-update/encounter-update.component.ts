@@ -140,7 +140,7 @@ export class EncounterUpdateComponent {
 
     if(this.edit==false){
 
-    this.service.editEncounter(formData).subscribe({
+    this.service.editEncounter(formData,this.id).subscribe({
       next: () => {
         this.encounterForm.reset();
         this.imagePreview = [];
@@ -152,7 +152,7 @@ export class EncounterUpdateComponent {
   }else{
     formData.append('id', this.encounterId.toString()||"");
 
-    this.service.editEncounter(formData).subscribe({
+    this.service.editEncounter(formData,this.id).subscribe({
       next: () => {
         this.encounterForm.reset();
         this.imagePreview = [];

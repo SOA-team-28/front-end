@@ -97,8 +97,17 @@ export class EncounterRequestComponent {
               status: request.status,
               onHold: this.investigateStatus(request.status),
             };
+            const existingRequest = this.requestDetails.find(r => r.id === req.id);
+            if (existingRequest) {
+                // Ako postoji susret s istim ID-om, ne dodajte ga ponovno
+                console.log('Susret s istim ID-om već postoji.');
+                return;
+            }else{
 
-            this.requestDetails.push(req);
+              this.requestDetails.push(req);
+            }
+    
+           
           }
         });
       });
