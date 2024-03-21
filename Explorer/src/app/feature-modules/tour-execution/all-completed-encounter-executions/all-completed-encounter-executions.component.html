@@ -1,0 +1,30 @@
+<p>all-completed-encounter-executions works!</p>
+
+
+<div *ngIf="encounterExecutions && encounterExecutions.length > 0">
+    <h2>Encounter Executions</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Encounter ID</th>
+          <th>Tourist ID</th>
+          <th>Status</th>
+          <th>Start Time</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let execution of encounterExecutions">
+          <td>DTO: {{ execution.encounter.name }}</td>
+          <td>ENK ID: {{ execution.encounterId }}</td>
+          <td>Tourist id: {{ execution.touristId }}</td>
+          <td>{{ execution.status }}</td>
+          <td>{{ execution.startTime | date }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div *ngIf="!encounterExecutions || encounterExecutions.length === 0">
+    <p>No encounter executions found.</p>
+  </div>
+  

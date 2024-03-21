@@ -25,6 +25,7 @@ import { CompletedEncounterComponent } from '../completed-encounter/completed-en
 import { ConfirmDialogComponent } from 'src/app/shared/confirmation-dialog/confirmation-dialog.component';
 import { UnlockSecretDialogComponent } from '../unlock-secret-dialog/unlock-secret-dialog.component';
 import { ImageService } from 'src/app/shared/image/image.service';
+import { EncounterExecution2 } from '../../encounters/model/encounterExecution2.model';
 
 @Injectable({
   providedIn: 'root'
@@ -50,10 +51,13 @@ export class TourExecutionComponent implements OnInit, AfterViewInit {
   mapObjects: MapObject[] = [];
   
   encounterExecutions : EncounterExecution[] = [];
+  completedEncounters : EncounterExecution[] = [];
   availableEncounterExecution: EncounterExecution;
   availableEncounter: Encounter;
   currentlyPeopleOnSocialEncounter: number = 0;
 
+  completedEncountersReview : EncounterExecution2[]=[]
+  completedEncountersBindingList : EncounterExecution2[]=[]
   completedEncounterExecutions : EncounterExecution[] = [];
 
   notifications: number[]=[1];
@@ -65,6 +69,10 @@ export class TourExecutionComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.notifications = [];
+
+   
+    
+
 
     this.service.getMapObjects().subscribe( result => {
       this.mapObjects = result.results;
@@ -80,6 +88,8 @@ export class TourExecutionComponent implements OnInit, AfterViewInit {
       this.tourId = params['tourId'];
       this.authService.user$.subscribe(user => {
       this.tourist = user;
+
+      
 
       this.service.getTourExecution(this.tourId).subscribe(result => {
         if(result != null)
@@ -106,6 +116,24 @@ export class TourExecutionComponent implements OnInit, AfterViewInit {
     this.checkPosition();
   }, 10000);
 
+ this.getAllCompletedEncounterExecutions();
+
+  }
+
+  getAllCompletedEncounterExecutions(){
+    this.service.getCompleted(this.tourist.id).subscribe( result => {
+      this.completedEncountersReview = result;
+      this.completedEncountersReview.forEach(enc=>{
+        console.log("NADJENIII: ",enc);
+        this.tour.checkpoints.forEach(cp=>{
+          if(cp.id == enc.encounter.checkPointId){
+              this.completedEncountersBindingList.push(enc);
+              console.log("VALIDNI",enc);
+          }
+        })
+      })
+      
+    });
   }
 
   ngAfterViewInit(): void{
@@ -266,7 +294,7 @@ export class TourExecutionComponent implements OnInit, AfterViewInit {
 
               if(this.availableEncounter && this.availableEncounter.type == 'Social')
               {
-                this.currentlyPeopleOnSocialEncounter = this.availableEncounter.activeTouristsIds?.length || 0;
+                //this.currentlyPeopleOnSocialEncounter = this.availableEncounter.activeTouristsIds?.length || 0;
               }
             });
           this.findCheckpoints();
@@ -298,7 +326,7 @@ export class TourExecutionComponent implements OnInit, AfterViewInit {
                   }
                   this.availableEncounterExecution = result;
                   this.availableEncounter = this.availableEncounterExecution.encounterDto;
-                  this.currentlyPeopleOnSocialEncounter = this.availableEncounter.activeTouristsIds?.length || 0;
+                  //this.currentlyPeopleOnSocialEncounter = this.availableEncounter.activeTouristsIds?.length || 0;
                   this.encounterExecutions.forEach(e => {
                     if(e.id == result.id)
                     {
@@ -332,6 +360,12 @@ export class TourExecutionComponent implements OnInit, AfterViewInit {
     clearInterval(this.checkPositions);
   }
 
+  deleteEncounter(id:number){
+    this.service.deleteEncounterById(id).subscribe(result=>{
+      this.getAllCompletedEncounterExecutions();
+
+    })
+  }
 
   findCheckpoints(): void{
     this.tourExecution.completedCheckpoints?.forEach(element => {

@@ -14,6 +14,7 @@ import { Encounter } from '../encounters/model/encounter.model';
 import { EncounterExecution } from '../encounters/model/encounterExecution.model';
 import { PrivateTourExecution } from '../tour-authoring/model/private-tour-execution.model';
 import { PrivateTour } from '../tour-authoring/model/private-tour.model';
+import { EncounterExecution2 } from '../encounters/model/encounterExecution2.model';
 
 @Injectable({
   providedIn: 'root'
@@ -129,11 +130,17 @@ export class TourExecutionService {
     return this.http.get<EncounterExecution>(environment.apiHost + 'tourist/encounter-execution/location/checkRange/' + encounterExecutionId + "/" + tourId, {params: queryParams});
   }
 
-  getCompleted() : Observable<EncounterExecution[]>{
+  getCompleted(touristId:number) : Observable<EncounterExecution2[]>{
     let queryParams = new HttpParams();
     queryParams = queryParams.append("page", 0);
     queryParams = queryParams.append("pageSize", 0);
-    return this.http.get<EncounterExecution[]>(environment.apiHost + 'tourist/encounter-execution/get-all-completed', {params: queryParams});
+    queryParams = queryParams.append("touristId", touristId);
+    return this.http.get<EncounterExecution2[]>(environment.apiHost + 'tourist/encounter-execution/get-all-completed', {params: queryParams});
+  }
+
+
+  deleteEncounterById(id: number): Observable<EncounterExecution2> {
+    return this.http.delete<EncounterExecution2>(environment.apiHost + 'tourist/encounter-execution/' + id);
   }
 
   getRecommendedTours(tourId: number): Observable<TourPreview[]>{

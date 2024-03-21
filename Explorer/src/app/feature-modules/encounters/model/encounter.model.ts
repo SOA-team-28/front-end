@@ -14,5 +14,6 @@ export interface Encounter {
     imageF?:FileList,
     range?:number,
     requiredPeople?:number
-    activeTouristsIds?: number[]
+    checkPointId:number
+   // activeTouristsIds?: number[]
 }

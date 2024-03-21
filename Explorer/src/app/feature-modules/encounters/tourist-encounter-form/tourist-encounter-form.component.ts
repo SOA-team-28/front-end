@@ -211,6 +211,7 @@ export class TouristEncounterFormComponent {
       this.encounterForm.get('latitude')?.setValue(selectedCheckpoint.latitude);
       this.longitude = selectedCheckpoint.longitude;
       this.latitude = selectedCheckpoint.latitude;
+      console.log("Izabrani check point : " , checkpointId);
     }
   }
 }
