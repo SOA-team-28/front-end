@@ -165,7 +165,7 @@ export class EncounterUpdateComponent {
 
 
 
-    this.router.navigate([`checkpoint-secret/${this.id}`]);
+    this.router.navigate([`checkpoint/${this.checkpoint.tourId}`]);
   }
 
 
