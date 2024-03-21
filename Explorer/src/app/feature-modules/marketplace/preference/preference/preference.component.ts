@@ -38,15 +38,12 @@ export class PreferenceComponent {
 
   getPreference(): void {
     this.service.getTourPreference(this.user.id).subscribe({
-      next: (result: TourPreference) => {
-        this.preferences = [];
-        if(!(result.difficulty == null)){
-          this.preferences.push(result);
-          this.shouldRenderTourForm = this.preferences.length < 1;
-        }
-        else{
-          this.shouldRenderTourForm = true;
-        }
+      next: (result: TourPreference[]) => {
+        this.preferences = result;
+        console.log(result)
+        //if(!(result.difficulty == null)){
+         // this.preferences.push(result);
+        //}
       },
       error: () => {
       }
