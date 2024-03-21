@@ -35,8 +35,8 @@ export class EncounterService {
     return this.http.get<Encounter>(environment.apiHost + 'administration/encounter/'+id);
   }
 
-  editEncounter(encounter: FormData): Observable<Encounter> {
-    return this.http.put<Encounter>(environment.apiHost + 'administration/encounter', encounter);
+  editEncounter(encounter: FormData,chId: number): Observable<Encounter> {
+    return this.http.put<Encounter>(environment.apiHost + 'administration/encounter/'+ chId, encounter);
   }
 
   deleteEncounter(checkpointId:number): Observable<Encounter> {
@@ -61,5 +61,15 @@ export class EncounterService {
 
   getEncounters(): Observable<PagedResults<Encounter>> {
     return this.http.get<PagedResults<Encounter>>(environment.apiHost + 'administration/touristEncounter');
+  }
+  getByCheckPoint(chId:number):Observable<Encounter>{
+    return this.http.get<Encounter>(environment.apiHost + 'administration/encounter/getByCheckPoint/'+ chId);
+  }
+  //dodate
+  getAllEncounters(): Observable<Encounter[]> {
+    return this.http.get<Encounter[]>(environment.apiHost + 'administration/touristEncounter');
+  }
+  getRequests(): Observable<EncounterRequest[]> {
+    return this.http.get<EncounterRequest[]>(environment.apiHost + 'administration/encounterRequests');
   }
 }

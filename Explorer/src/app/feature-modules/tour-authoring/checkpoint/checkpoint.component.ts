@@ -226,4 +226,8 @@ export class CheckpointComponent implements OnInit{
   getImageUrl(imageName: string): string {
     return this.imageService.getImageUrl(imageName);
   }
+
+  updateCheckPoint(chId: number){
+    this.router.navigate([`encounter-update/` + chId]);
+  }
 }

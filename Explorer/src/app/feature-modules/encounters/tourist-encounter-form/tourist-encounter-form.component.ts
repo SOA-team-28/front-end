@@ -116,7 +116,7 @@ export class TouristEncounterFormComponent {
   }else{
     formData.append('id', this.encounterId.toString()||"");
 
-    this.service.editEncounter(formData).subscribe({
+    this.service.editEncounter(formData,this.id).subscribe({
       next: () => {
         this.encounterForm.reset();
         this.imagePreview = [];

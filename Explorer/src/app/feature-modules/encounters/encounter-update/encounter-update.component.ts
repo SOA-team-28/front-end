@@ -9,22 +9,29 @@ import { TourAuthoringService } from '../../tour-authoring/tour-authoring.servic
 import { Encounter } from '../model/encounter.model';
 import { __values } from 'tslib';
 import { MapComponent } from 'src/app/shared/map/map.component';
-
 @Component({
-  selector: 'xp-encounter-form',
-  templateUrl: './encounter-form.component.html',
-  styleUrls: ['./encounter-form.component.css']
+  selector: 'xp-encounter-update',
+  templateUrl: './encounter-update.component.html',
+  styleUrls: ['./encounter-update.component.css']
 })
-export class EncounterFormComponent implements OnInit{
+export class EncounterUpdateComponent {
+
   @ViewChild('fileUpload') fileUpload: ElementRef ;
 
   constructor(private service: EncounterService, authService: AuthService, private imageService: ImageService,private activatedRoute:ActivatedRoute,
     private tourAuthoringService: TourAuthoringService,private router:Router) {
+      this.activatedRoute.params.subscribe(params=>{
+        this.id=params['id'];
+         this.getByCheckPoint();
+        
+      })
     this.authorId = authService.user$.value.id;
     this.encounterForm.controls.latitude.disable();
     this.encounterForm.controls.longitude.disable();
     this.encounterForm.controls.locationLatitude.disable();
     this.encounterForm.controls.locationLongitude.disable();
+
+    
   }
 
   @ViewChild(MapComponent) mapComponent: MapComponent;
@@ -35,6 +42,7 @@ export class EncounterFormComponent implements OnInit{
   encounter:Encounter;
   edit:boolean=false;
   encounterId:number;
+  encounterForUpdate:Encounter;
 
 
   ngOnInit(): void {
@@ -52,6 +60,8 @@ export class EncounterFormComponent implements OnInit{
           }
         }
     })
+
+    this.encounterForm.controls.description.setValue(this.encounterForUpdate.description);
   }
 
   getCheckpoint(id: number): void {
@@ -130,7 +140,7 @@ export class EncounterFormComponent implements OnInit{
 
     if(this.edit==false){
 
-    this.service.addEncounter(formData,this.id,this.encounterForm.value.isPrerequisite|| false).subscribe({
+    this.service.editEncounter(formData,this.id).subscribe({
       next: () => {
         this.encounterForm.reset();
         this.imagePreview = [];
@@ -155,7 +165,7 @@ export class EncounterFormComponent implements OnInit{
 
 
 
-    this.router.navigate([`checkpoint-secret/${this.id}`]);
+    this.router.navigate([`checkpoint/${this.checkpoint.tourId}`]);
   }
 
 
@@ -225,4 +235,26 @@ export class EncounterFormComponent implements OnInit{
       },
     });
   }
+
+  getByCheckPoint(){
+    this.service.getByCheckPoint(this.id).subscribe({
+      next:(response)=>{
+        this.encounterForUpdate=response;
+        console.log('DOBAVLJENI', response)
+        this.encounterForm.controls.description.setValue(this.encounterForUpdate.description);
+        this.encounterForm.controls.name.setValue(this.encounterForUpdate.name);
+        this.encounterForm.controls.xp.setValue(this.encounterForUpdate.xp);
+        this.encounterForm.controls.type.setValue(this.encounterForUpdate.type);
+        this.encounterForm.controls.longitude.setValue(this.encounterForUpdate.longitude);
+        this.encounterForm.controls.latitude.setValue(this.encounterForUpdate.latitude);
+        this.encounterForm.controls.locationLatitude.setValue(this.encounterForUpdate.locationLatitude|| null);
+        this.encounterForm.controls.range.setValue(this.encounterForUpdate.range|| null);
+        this.encounterForm.controls.requiredPeople.setValue(this.encounterForUpdate.requiredPeople||null);
+        this.encounterForm.controls.xp.setValue(this.encounterForUpdate.xp);
+      }
+    })
+
+    
+  }
 }
+

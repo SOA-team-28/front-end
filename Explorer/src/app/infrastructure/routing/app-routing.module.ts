@@ -67,6 +67,7 @@ import { TouristCurrentPositionComponent } from 'src/app/feature-modules/tourist
 import { ResetPasswordComponent } from '../auth/reset-password/reset-password/reset-password.component';
 import { VerificationSuccessComponent } from '../auth/verification-success/verification-success.component';
 import { AllCompletedEncounterExecutionsComponent } from 'src/app/feature-modules/tour-execution/all-completed-encounter-executions/all-completed-encounter-executions.component';
+import { EncounterUpdateComponent } from 'src/app/feature-modules/encounters/encounter-update/encounter-update.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
@@ -196,6 +197,7 @@ const routes: Routes = [
   {path: 'verification-success', component: VerificationSuccessComponent},
   {path: 'completedEncounters', component: AllCompletedEncounterExecutionsComponent},
 
+  {path: 'encounter-update/:id', component:EncounterUpdateComponent}
 ];
 
 @NgModule({

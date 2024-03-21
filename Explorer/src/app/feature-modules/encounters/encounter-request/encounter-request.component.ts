@@ -21,24 +21,30 @@ import { User } from 'src/app/infrastructure/auth/model/user.model';
 })
 export class EncounterRequestComponent {
   requestDetails: { id: number, encounterName: string, encounterXp: number,encounterLongitude: number,encounterLatitude: number, touristName: string, status: Status, onHold:boolean}[] = [];
-  allEncounters: PagedResults<Encounter>;
+  allEncounters: Encounter[];
   allUsers: PagedResults<User>;
-  allEncounterRequests: PagedResults<EncounterRequest>;
+  allEncounterRequests: EncounterRequest[];
 
-  constructor(private encounterService: EncounterService) { }
-
-  ngOnInit(): void {
+  constructor(private encounterService: EncounterService) { 
+    this.getAllObjects();
     this.getAllRequests();
   }
 
+  ngOnInit(): void {
+
+   // this.getAllRequests();
+  }
+
   getAllRequests(): void {
-    this.encounterService.getAllRequests().subscribe({
-        next: (requests: PagedResults<EncounterRequest>) => {
+    this.encounterService.getRequests().subscribe({
+        next: (requests) => {
             this.allEncounterRequests = requests;
+            console.log('Requestssss',requests)
             this.getAllObjects();
         },
-        error: () => {
+        error: (err) => {
             // Handle errors
+            console.log(err)
         }
     });
 
@@ -46,13 +52,15 @@ export class EncounterRequestComponent {
   }
 
   getAllObjects(): void {
-    this.encounterService.getEncounters().subscribe({
-        next: (objects: PagedResults<Encounter>) => {
+    this.encounterService.getAllEncounters().subscribe({
+        next: (objects) => {
             this.allEncounters = objects;
+            console.log('ENKOUNTERII', objects)
             this.getAllUsers();
         },
-        error: () => {
+        error: (err) => {
             // Handle errors
+            console.log('greskaa',err)
         }
     });
 
@@ -65,8 +73,9 @@ export class EncounterRequestComponent {
             this.allUsers = users;
             this.fillRequestDetails();
         },
-        error: () => {
+        error: (err) => {
             // Handle errors
+            console.log(err)
         }
     });
 
@@ -74,10 +83,10 @@ export class EncounterRequestComponent {
   }
 
   fillRequestDetails(): void {
-    this.allEncounterRequests.results.forEach(request => {
-      this.allEncounters.results.forEach(encounter => {
+    this.allEncounterRequests.forEach(request => {
+      this.allEncounters.forEach(encounter => {
         this.allUsers.results.forEach(user => {
-          if(request.touristId === user.id && request.encounterId === encounter.id) {
+          if(request.touristId == user.id && request.encounterId == encounter.id) {
             let req: { id: number, encounterName: string, encounterXp: number,encounterLongitude: number,encounterLatitude: number, touristName: string, status: Status, onHold:boolean} = {
               id: request.id,
               encounterName: encounter.name,
@@ -88,8 +97,17 @@ export class EncounterRequestComponent {
               status: request.status,
               onHold: this.investigateStatus(request.status),
             };
+            const existingRequest = this.requestDetails.find(r => r.id === req.id);
+            if (existingRequest) {
+                // Ako postoji susret s istim ID-om, ne dodajte ga ponovno
+                console.log('Susret s istim ID-om već postoji.');
+                return;
+            }else{
 
-            this.requestDetails.push(req);
+              this.requestDetails.push(req);
+            }
+    
+           
           }
         });
       });
