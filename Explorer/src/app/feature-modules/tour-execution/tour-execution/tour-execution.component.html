@@ -130,21 +130,22 @@
                         </div>
                         <table class="checkpoint-table">
                             <tbody>
-                                <tr *ngFor="let ch of completedEncountersBindingList"
-                                    class="checkpoint-row">
+                                <tr *ngFor="let ch of completedEncountersBindingList" class="checkpoint-row">
                                     <td class="checkpoint">
                                         <label class="ch-title">{{ch.encounter.name}}</label>
-                                        
                                         <div>
-                                            <label class="ch-description">Description: {{ch.encounter.description}}</label>        
-                                        </div>                                        
+                                            <label class="ch-description">Description: {{ch.encounter.description}}</label>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <button (click)="deleteEncounter(ch.encounterId)">Delete</button>
                                     </td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
                 </div>
-
+                
 
 
 

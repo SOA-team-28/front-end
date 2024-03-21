@@ -116,20 +116,24 @@ export class TourExecutionComponent implements OnInit, AfterViewInit {
     this.checkPosition();
   }, 10000);
 
-  this.service.getCompleted(this.tourist.id).subscribe( result => {
-    this.completedEncountersReview = result;
-    this.completedEncountersReview.forEach(enc=>{
-      console.log("NADJENIII: ",enc);
-      this.tour.checkpoints.forEach(cp=>{
-        if(cp.id == enc.encounter.checkPointId){
-            this.completedEncountersBindingList.push(enc);
-            console.log("VALIDNI",enc);
-        }
-      })
-    })
-    
-  });
+ this.getAllCompletedEncounterExecutions();
 
+  }
+
+  getAllCompletedEncounterExecutions(){
+    this.service.getCompleted(this.tourist.id).subscribe( result => {
+      this.completedEncountersReview = result;
+      this.completedEncountersReview.forEach(enc=>{
+        console.log("NADJENIII: ",enc);
+        this.tour.checkpoints.forEach(cp=>{
+          if(cp.id == enc.encounter.checkPointId){
+              this.completedEncountersBindingList.push(enc);
+              console.log("VALIDNI",enc);
+          }
+        })
+      })
+      
+    });
   }
 
   ngAfterViewInit(): void{
@@ -356,6 +360,12 @@ export class TourExecutionComponent implements OnInit, AfterViewInit {
     clearInterval(this.checkPositions);
   }
 
+  deleteEncounter(id:number){
+    this.service.deleteEncounterById(id).subscribe(result=>{
+      this.getAllCompletedEncounterExecutions();
+
+    })
+  }
 
   findCheckpoints(): void{
     this.tourExecution.completedCheckpoints?.forEach(element => {

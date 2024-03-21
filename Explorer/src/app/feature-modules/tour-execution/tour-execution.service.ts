@@ -139,6 +139,9 @@ export class TourExecutionService {
   }
 
 
+  deleteEncounterById(id: number): Observable<EncounterExecution2> {
+    return this.http.delete<EncounterExecution2>(environment.apiHost + 'tourist/encounter-execution/' + id);
+  }
 
   getRecommendedTours(tourId: number): Observable<TourPreview[]>{
     return this.http.get<TourPreview[]>(environment.apiHost + 'tour-execution/get-suggested-tours/' + tourId);
