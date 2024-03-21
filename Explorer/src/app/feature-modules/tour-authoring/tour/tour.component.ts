@@ -77,13 +77,8 @@ export class TourComponent implements OnInit{
     this.creatingBundle = !this.creatingBundle;
   }
   averageGrade(tour: Tour){
-    var sum = 0;
-    var count = 0;
-    for(let g of tour.tourRatings){
-      sum += g.rating;
-      count ++;
-    }
-    return parseFloat((sum/count).toFixed(1)).toFixed(1);
+
+    return 0;
   }
 
   deleteTour(id: number): void {

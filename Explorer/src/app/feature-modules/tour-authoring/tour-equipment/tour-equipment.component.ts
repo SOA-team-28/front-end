@@ -57,11 +57,10 @@ export class TourEquipmentComponent implements OnInit {
     if(tourId !== undefined && equipmentId !== undefined){
       this.service.removeEquipment(tourId, equipmentId).subscribe({
         next: (result: Tour) => {
-          this.tour = result;
-          this.currentEquipmentIds = this.tour.equipment.map(e => e.id as number);
-          this.getAvailableEquipment(this.currentEquipmentIds);
+          this.getTour(this.id);
         },
         error: () => {
+          this.getAvailableEquipment(this.currentEquipmentIds);
         }
       })
     }
@@ -71,11 +70,10 @@ export class TourEquipmentComponent implements OnInit {
     if(tourId !== undefined && equipmentId !== undefined){
       this.service.addEquipment(tourId, equipmentId).subscribe({
         next: (result: Tour) => {
-          this.tour = result;
-          this.currentEquipmentIds = this.tour.equipment.map(e => e.id as number);
-          this.getAvailableEquipment(this.currentEquipmentIds);
+          this.getTour(this.id);
         },
         error: () => {
+          this.getAvailableEquipment(this.currentEquipmentIds);
         }
       })
     }

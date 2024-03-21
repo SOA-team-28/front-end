@@ -9,7 +9,7 @@
                     <button *ngIf="!creatingBundle" class="filtersButton" (click)="onCreatingBundle()">Create a bundle offer</button>
                     <button *ngIf="creatingBundle" class="filtersButton" (click)="onCreatingBundle()">Cancel bundle offer</button>
                 </span>
-                <button *ngIf="creatingBundle" class="bundleButton" title="Click here to create a bundle offer" (click)="finishBundleInformation()">🛍️ {{bundleTours.length}}</button>
+                
             </span>
             <div *ngIf="showBundleTours"  class="tour-bundle-container" style="background-color: #3B846B;">
                 <div class="bundle-top">
@@ -33,14 +33,8 @@
                         </div>
                         <div class="card-top">
                           <label class="card-location-header">{{ getTourLocation(tour.id || 0) }}</label>
-                         <div *ngIf="tour.tourRatings.length>0" style="height: auto; width: 22vh; display: flex; justify-content: end; margin-right: 5px;">
-                            <label style="color: white; font-size: 100%; font-weight: 400; margin-right: 4px;">{{averageGrade(tour)}}</label>
-                            <label *ngIf="+averageGrade(tour) < 1; else fullStar" class="star" data-text="&#9733;">&#9734;</label>
-                            <label *ngIf="+averageGrade(tour) < 2; else fullStar" class="star" data-text="&#9733;">&#9734;</label>
-                            <label *ngIf="+averageGrade(tour) < 3; else fullStar" class="star" data-text="&#9733;">&#9734;</label>
-                            <label *ngIf="+averageGrade(tour) < 4; else fullStar" class="star" data-text="&#9733;">&#9734;</label>
-                            <label *ngIf="+averageGrade(tour) < 5; else fullStar" class="star" data-text="&#9733;">&#9734;</label>
-                            <ng-template #fullStar><label class="star" data-text="&#9733;">&#9733;</label></ng-template>
+                         <div style="height: auto; width: 22vh; display: flex; justify-content: end; margin-right: 5px;">
+
                           </div> 
                           
                         </div>
@@ -69,12 +63,11 @@
                             <label *ngIf="isOnSale(tour.id||0)" class="discount"> -{{Discount(tour.id||0)}}% </label>
                             <img class="last_minute" *ngIf="isLastMinute(tour.id||0) && isOnSale(tour.id||0)" src="../../../../assets/landing_page/last-minute-offer.png" alt="image1">
                         </div>
-                        <img *ngIf="tour.checkpoints && tour.checkpoints.length > 0 && tour.checkpoints[0].pictures && tour.checkpoints[0].pictures.length > 0" [src]="getImageUrl(tour.checkpoints[0].pictures[0])" alt="Image1" class="tour-card-img">
-                        
+                     
                     </div>
                     <div class="card-top">
                       <label class="card-location-header">{{ getTourLocation(tour.id || 0) }}</label>
-                     <div *ngIf="tour.tourRatings.length>0" style="height: auto; width: 22vh; display: flex; justify-content: end; margin-right: 5px;">
+                     <div style="height: auto; width: 22vh; display: flex; justify-content: end; margin-right: 5px;">
                         <label style="color: white; font-size: 100%; font-weight: 400; margin-right: 4px;">{{averageGrade(tour)}}</label>
                         <label *ngIf="+averageGrade(tour) < 1; else fullStar" class="star" data-text="&#9733;">&#9734;</label>
                         <label *ngIf="+averageGrade(tour) < 2; else fullStar" class="star" data-text="&#9733;">&#9734;</label>

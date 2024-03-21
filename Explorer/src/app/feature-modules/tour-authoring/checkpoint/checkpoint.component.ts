@@ -47,7 +47,7 @@ export class CheckpointComponent implements OnInit{
        this.service.get(this.tourID).subscribe((result: Tour) => {  
           this.tour = result;
           this.checkpoints = this.tour.checkpoints || [];
-          this.tourTimes = this.tour.tourTimes;
+          this.tourTimes = [];
           this.fillProfiles();
           this.ngAfterViewInit();
        });
