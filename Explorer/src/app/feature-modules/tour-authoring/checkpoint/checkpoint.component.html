@@ -54,6 +54,7 @@
                 <th>Picture</th>
                 <th></th>
                 <th></th>
+                <th>Update CheckPoint</th>
             </tr>
     </thead>
     <tbody>
@@ -71,6 +72,9 @@
             </td>
             <td>
                 <button class="button-table" (click)="onDelete(c.id || 0)" mat-raised-button>Delete🗑️</button>
+            </td>
+            <td>
+                <button class="button-table" (click)="updateCheckPoint(c.id||0)" mat-raised-button>Edit✏️</button>
             </td>
         </tr>
     </tbody>

@@ -9,12 +9,14 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { MatSelectModule } from '@angular/material/select';
 import { TouristEncounterFormComponent } from './tourist-encounter-form/tourist-encounter-form.component';
 import { EncounterRequestComponent } from './encounter-request/encounter-request.component';
+import { EncounterUpdateComponent } from './encounter-update/encounter-update.component';
 
 @NgModule({
   declarations: [
     EncounterFormComponent,
     TouristEncounterFormComponent,
-    EncounterRequestComponent
+    EncounterRequestComponent,
+    EncounterUpdateComponent
   ],
   imports: [
     CommonModule,
