@@ -16,34 +16,35 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let t of preferences">
-                    <td>{{t.difficulty}}</td>
-                    <td>{{t.walk}}</td>
-                    <td>{{t.bike}}</td>
-                    <td>{{t.car}}</td>
-                    <td>{{t.boat}}</td>
-                    <td>{{t.tags}}</td>
+                <tr *ngFor="let preference of preferences">
+                    <td>{{ preference.difficulty }}</td>
+                    <td>{{ preference.walk }}</td>
+                    <td>{{ preference.bike }}</td>
+                    <td>{{ preference.car }}</td>
+                    <td>{{ preference.boat }}</td>
+                    <td>{{ preference.tags }}</td>
                     <td>
-                        <button color="accent" (click)="deletePreference(t.id || 0)" mat-icon-button>
+                        <button color="accent" (click)="deletePreference(preference.id || 0)" mat-icon-button>
                             <mat-icon>delete</mat-icon>
                         </button>
-                        <button color="primary" (click)="onEditClicked(t)" mat-icon-button>
+                        <button color="primary" (click)="onEditClicked(preference)" mat-icon-button>
                             <mat-icon>edit</mat-icon>
                         </button>
                     </td>
                 </tr>
-                
-                <!--tr *ngIf="preferences.length > 0">
-                    <button color="primary" (click)="onEditClicked(preferences[0])" mat-icon-button>
-                      <mat-icon>edit</mat-icon>
-                    </button>
-                  </tr-->
-                  <tr>
-                    <button color="primary" (click)="onAddClicked()" mat-icon-button>
-                      <mat-icon>add</mat-icon>
-                    </button>
-                  </tr>
+            
+                <tr>
+                    <td colspan="7">
+                        <button color="primary" (click)="onAddClicked()" mat-icon-button>
+                            <mat-icon>add</mat-icon>
+                        </button>
+                    </td>
+                </tr>
             </tbody>
         </table>
     </div>
-</body>
+    <div>
+        <xp-preference-form *ngIf="shouldRenderTourForm" [shouldEdit]="shouldEdit" [preference]="selectedTour" (preferenceUpdated)="getPreference()"></xp-preference-form>
+    </div>
+    </div>
+</div>

@@ -3,6 +3,9 @@
     margin-left: 20px;
     font-family: 'Poppins', sans-serif;
     color:#ffffff;
+    background-image: url('background.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 #tour-details {

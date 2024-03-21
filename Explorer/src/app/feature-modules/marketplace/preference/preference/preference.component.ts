@@ -15,9 +15,8 @@ export class PreferenceComponent {
   shouldRenderTourForm: boolean = false;
   shouldEdit: boolean = false;
   user: User;
-  formToggle: boolean = false;
 
-  
+
   constructor(private service: MarketplaceService, private authService: AuthService) { }
 
   ngOnInit(): void {
@@ -26,12 +25,11 @@ export class PreferenceComponent {
     });
     this.getPreference();
   }
-  
+
   deletePreference(id: number): void {
     this.service.deleteTourPreference(id).subscribe({
       next: () => {
         this.getPreference();
-        this.shouldRenderTourForm = true;
       },
     })
   }
@@ -48,11 +46,6 @@ export class PreferenceComponent {
       error: () => {
       }
     })
-  }
-
-  preferenceUpdated(): void {
-    this.getPreference();
-
   }
 
   onEditClicked(preference: TourPreference): void {
