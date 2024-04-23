@@ -67,7 +67,7 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "port": 8080, 
+            "port": 4200, 
             "ssl": false
           },
           "configurations": {

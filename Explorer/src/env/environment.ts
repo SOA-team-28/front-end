@@ -1,6 +1,6 @@
 export const environment = {
     production: false,
-    apiHost: 'https://localhost:44333/api/',
-    wwwRoot: 'https://localhost:44333',
+    apiHost: 'https://localhost:8080/api/',
+    wwwRoot: 'https://localhost:8080',
 };
   
