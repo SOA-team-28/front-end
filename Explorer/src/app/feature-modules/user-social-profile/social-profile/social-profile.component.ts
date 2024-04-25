@@ -28,27 +28,43 @@ export class SocialProfileComponent implements OnInit{
   messageId: number | undefined;
 
   constructor(private service: UserSocialProfileService, 
-    private authService: AuthService){ }
+    private authService: AuthService){ 
+      this.authService.user$.subscribe(user => {
+        this.user = user;
+        this.getSocialProfile(this.user.id);
+        this.onInboxTabClick();
+        // TODO - display message on see details in notification
+      });
+    }
 
   ngOnInit(): void {
-    this.authService.user$.subscribe(user => {
-      this.user = user;
-      this.getSocialProfile(this.user.id);
-      this.onInboxTabClick();
-      // TODO - display message on see details in notification
-    });
+    
   }
 
   getSocialProfile(id: number): void {
-    this.service.getSocilaProfile(id).subscribe((result: SocialProfile) => {
-      this.socialProfile = result;
+    this.service.getSocilaProfile(id).subscribe( {
+      next:(response)=>{
+        this.socialProfile = response;
+      console.log('Profiiil',this.socialProfile)
+      },
+     error:(err)=>{
+      console.log(err)
+     }
+     
     });
   }
 
   onFollowClick(followedId?: number): void {
     if(this.user && followedId){
-      this.service.follow(this.user.id, followedId).subscribe((result: SocialProfile) => {
-        this.socialProfile = result;
+      this.service.follow(this.user.id, followedId).subscribe( {
+
+        next:(response)=>{
+          this.socialProfile = response;
+          console.log(this.socialProfile)
+        },
+        error:(err)=>{
+        console.log(err)          
+        }
       });
     }
   }
