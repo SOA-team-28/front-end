@@ -94,7 +94,7 @@ export class LayoutService {
   }
 
   getAllTours():  Observable<PagedResults<TourPreview>>{
-      return this.http.get<PagedResults<TourPreview>>('https://localhost:44333/api/langing-page/get-all-tours-preview');
+      return this.http.get<PagedResults<TourPreview>>('http://localhost:8080/api/langing-page/get-all-tours-preview');
   }
     
 
